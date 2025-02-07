@@ -19,6 +19,11 @@ class BlogPostsController < ApplicationController
   def edit
   end
 
+  def my_blogs
+    @blog_posts = current_admin.blog_posts
+    render :index
+  end
+
   # POST /blog_posts or /blog_posts.json
   def create
     @blog_post = BlogPost.new(blog_post_params)
