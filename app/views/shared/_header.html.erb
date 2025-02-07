@@ -1,0 +1,9 @@
+<header class="bg-gray-600 text-white py-4">
+  <div class="container mx-auto flex justify-between items-center px-4">
+    <h1 class="text-2xl font-bold"><%= link_to "CricBlog", root_path, class: "text-white" %></h1>
+    <nav>
+      <%= link_to "Home", root_path, class: "mr-4 hover:underline" %>
+      <%= link_to "New Post", new_blog_post_path, class: "mr-4 hover:underline" if current_admin %>
+    </nav>
+  </div>
+</header>

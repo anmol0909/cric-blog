@@ -25,8 +25,11 @@
   <body>
     <%= render "layouts/admin" if current_admin %>
     <%= render "layouts/alerts" %>
-    <main class="container mx-auto mt-28 px-5 flex">
+    <%= render "shared/header" %> <%# Added the header here %>
+
+    <main class="container mx-auto mt-10 px-5 flex">
       <%= yield %>
     </main>
+    <%= render "shared/footer" %> <%# Added the footer here %>
   </body>
 </html>
