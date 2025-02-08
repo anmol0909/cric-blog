@@ -1,6 +1,7 @@
 class BlogPostsController < ApplicationController
   before_action :set_blog_post, only: %i[ show edit update destroy ]
   before_action :authorize_admin!, except: %i[ show index ]
+  before_action :authorize_owner!, only: %i[edit update destroy]
   # GET /blog_posts or /blog_posts.json
   def index
     @blog_posts = BlogPost.all
@@ -26,7 +27,7 @@ class BlogPostsController < ApplicationController
 
   # POST /blog_posts or /blog_posts.json
   def create
-    @blog_post = BlogPost.new(blog_post_params)
+    @blog_post = current_admin.blog_posts.new(blog_post_params)  # Assign admin automatically
 
     respond_to do |format|
       if @blog_post.save
@@ -68,8 +69,14 @@ class BlogPostsController < ApplicationController
       @blog_post = BlogPost.friendly.find(params.expect(:id))
     end
 
+    def authorize_owner!
+      unless @blog_post.admin == current_admin
+        redirect_to blog_posts_path, alert: "You are not authorized to perform this action."
+      end
+    end
+
     # Only allow a list of trusted parameters through.
     def blog_post_params
-      params.expect(blog_post: [ :title, :body, :meta_description, :meta_title, :meta_image, :banner_image, :tags ])
+      params.require(:blog_post).permit(:title, :body, :meta_description, :meta_title, :meta_image, :banner_image, :tags)
     end
 end
