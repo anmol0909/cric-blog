@@ -15,8 +15,14 @@
   <div class="mt-6">
     <h2 class="font-normal text-1xl mb-1">Filter by Tags:</h2>
     <div class="flex flex-wrap gap-4">
+      <!-- "All" Tag -->
+      <% all_selected = params[:tag].blank? %>
+      <%= link_to "All", blog_posts_path, class: "px-4 py-2 rounded-md hover:bg-gray-300 #{all_selected ? 'bg-gray-600 text-white' : 'bg-gray-200'}" %>
+
+      <!-- Other Tags -->
       <% @tags.each do |tag| %>
-        <%= link_to tag.name, blog_posts_path(tag: tag.id), class: "bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300" %>
+        <% selected = params[:tag].to_s == tag.id.to_s %>
+        <%= link_to tag.name, blog_posts_path(tag: tag.id), class: "px-4 py-2 rounded-md hover:bg-gray-300 #{selected ? 'bg-gray-600 text-white' : 'bg-gray-200'}" %>
       <% end %>
     </div>
   </div>

@@ -34,8 +34,11 @@
     <!-- Display tags with commas -->
     <% if @blog_post.tags.any? %>
       <div class="mt-2 text-sm text-gray-600">
-        Tags: 
-        <%= @blog_post.tags.map(&:name).join(", ") %>
+        Tags:
+        <% @blog_post.tags.each do |tag| %>
+          <%= link_to tag.name, blog_posts_path(tag: tag.id), class: "text-gray-600 hover:underline" %>
+          <% if tag != @blog_post.tags.last %>, <% end %>
+        <% end %>
       </div>
     <% else %>
       <div class="mt-2 text-sm text-gray-600">No tags available</div>
