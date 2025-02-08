@@ -3,14 +3,10 @@
   <meta property="og:title" content="<%= @blog_post.title %>" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="<%= request.original_url %>" />
-  <meta property="og:image" content="<%= @blog_post.meta_image.url if @blog_post.meta_image.attached? %>" />
-  <meta name="description" content="<%= @blog_post.meta_description %>">
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@blogapp" />
   <meta name="twitter:title" content="<%= @blog_post.title %>" />
-  <meta name="twitter:description" content="<%= @blog_post.meta_description %>" />
-  <meta name="twitter:image" content="<%= @blog_post.meta_image.url if @blog_post.meta_image.attached? %>" />
 <% end %>
 
 <div class="flex flex-col w-full">
@@ -28,14 +24,18 @@
   <h1 class="font-bold text-4xl mb-2"><%= @blog_post.title %></h1>
 
   <!-- Display author and publication date below the title -->
-  <div class="text-sm text-gray-600">
+  <div class="text-sm text-gray-600 mb-4">
     <span>by <%= @blog_post.admin.email %></span> • 
     <span>Published on <%= @blog_post.created_at.strftime("%a, %b %d, %Y, %I:%M %p") %></span>
   </div>
 
-  <div class="my-8 flex flex-col gap-4">
+  <div class="my-2 flex flex-col gap-4">
     <div> <%= @blog_post.body %> </div>
-    <span> Tags: <%= @blog_post.tags %> </span>
+  </div>
+
+  <!-- Add copyright sign after body -->
+  <div class="text-sm text-gray-600 mt-4">
+    &copy; CricBlog
   </div>
 
   <div class="flex items-center gap-4 mt-8">
