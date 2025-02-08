@@ -4,7 +4,12 @@ class BlogPostsController < ApplicationController
   before_action :authorize_owner!, only: %i[edit update destroy]
   # GET /blog_posts or /blog_posts.json
   def index
-    @blog_posts = BlogPost.all
+    if params[:tag].present?
+      @blog_posts = BlogPost.joins(:tags).where(tags: { id: params[:tag] }).order(created_at: :desc)
+    else
+      @blog_posts = BlogPost.all.order(created_at: :desc)
+    end
+    @tags = Tag.all # Get all the tags for the filter
   end
 
   # GET /blog_posts/1 or /blog_posts/1.json
@@ -21,7 +26,8 @@ class BlogPostsController < ApplicationController
   end
 
   def my_blogs
-    @blog_posts = current_admin.blog_posts
+    @tags = Tag.all
+    @blog_posts = current_admin.blog_posts.order(created_at: :desc)
     render :index
   end
 

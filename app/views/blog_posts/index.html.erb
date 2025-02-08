@@ -11,6 +11,16 @@
     </h1>
   </div>
 
+  <!-- Tag filter section -->
+  <div class="mt-6">
+    <h2 class="font-normal text-1xl mb-1">Filter by Tags:</h2>
+    <div class="flex flex-wrap gap-4">
+      <% @tags.each do |tag| %>
+        <%= link_to tag.name, blog_posts_path(tag: tag.id), class: "bg-gray-200 px-4 py-2 rounded-md hover:bg-gray-300" %>
+      <% end %>
+    </div>
+  </div>
+
   <div id="blog_posts" class="min-w-full grid md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
     <%= render @blog_posts %>
   </div>
