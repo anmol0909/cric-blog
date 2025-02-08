@@ -26,6 +26,23 @@
     <%= form.file_field :banner_image, class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": blog_post.errors[:banner_image].none?, "border-red-400 focus:outline-red-600": blog_post.errors[:banner_image].any?}] %>
   </div>
 
+  <div class="my-5">
+    <%= form.label :tags, "Select or Create Tags" %>
+    <div class="grid grid-cols-2 gap-4">
+      <% Tag.all.each_with_index do |tag, index| %>
+        <!-- Create a 2 column grid with checkboxes -->
+        <div class="flex items-center">
+          <%= form.check_box :tag_ids, { multiple: true, class: "mr-4" }, tag.id, nil %>
+          <%= form.label :tag_ids, tag.name, class: "ml-2" %> 
+        </div>
+      <% end %>
+    </div>
+
+    <div class="my-3">
+      <%= form.text_field :new_tag, placeholder: "Add a new tag", class: ["block shadow-sm rounded-md border outline-hidden px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": blog_post.errors[:new_tag].none?, "border-red-400 focus:outline-red-600": blog_post.errors[:new_tag].any?}] %>
+    </div>
+  </div>
+
   <div class="inline">
     <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-gray-600 hover:bg-gray-800 text-white inline-block font-medium cursor-pointer" %>
   </div>

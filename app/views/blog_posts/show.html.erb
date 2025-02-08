@@ -31,6 +31,15 @@
 
   <div class="my-2 flex flex-col gap-4">
     <div> <%= @blog_post.body %> </div>
+    <!-- Display tags with commas -->
+    <% if @blog_post.tags.any? %>
+      <div class="mt-2 text-sm text-gray-600">
+        Tags: 
+        <%= @blog_post.tags.map(&:name).join(", ") %>
+      </div>
+    <% else %>
+      <div class="mt-2 text-sm text-gray-600">No tags available</div>
+    <% end %>
   </div>
 
   <!-- Add copyright sign after body -->

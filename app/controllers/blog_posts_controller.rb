@@ -28,6 +28,13 @@ class BlogPostsController < ApplicationController
   # POST /blog_posts or /blog_posts.json
   def create
     @blog_post = current_admin.blog_posts.new(blog_post_params)  # Assign admin automatically
+    
+    if params[:blog_post][:new_tag].present?
+      tag = Tag.find_or_create_by(name: params[:blog_post][:new_tag])
+      @blog_post.tags << tag unless @blog_post.tags.include?(tag)  # Avoid duplicates
+      params[:blog_post][:tag_ids] = @blog_post.tags.map(&:id)  # Ensure tag_ids are passed
+    end
+    
 
     respond_to do |format|
       if @blog_post.save
@@ -42,6 +49,12 @@ class BlogPostsController < ApplicationController
 
   # PATCH/PUT /blog_posts/1 or /blog_posts/1.json
   def update
+    # Handle new tags if provided
+    if params[:blog_post][:new_tag].present?
+      tag = Tag.find_or_create_by(name: params[:blog_post][:new_tag])
+      @blog_post.tags << tag unless @blog_post.tags.include?(tag)
+      params[:blog_post][:tag_ids] = @blog_post.tags.map(&:id)
+    end
     respond_to do |format|
       if @blog_post.update(blog_post_params)
         format.html { redirect_to @blog_post, notice: "Blog post was successfully updated." }
@@ -77,6 +90,6 @@ class BlogPostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def blog_post_params
-      params.require(:blog_post).permit(:title, :body, :banner_image)
+      params.require(:blog_post).permit(:title, :body, :banner_image, tag_ids: [], new_tag: {})
     end
-end
+  end    
