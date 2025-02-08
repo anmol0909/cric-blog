@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   devise_for :admins
-  resources :blog_posts, path: "b"
+  resources :blog_posts, path: "cric-news"
   get :my_blogs, to: "blog_posts#my_blogs"
+  resources :tags, only: [:show], param: :slug
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

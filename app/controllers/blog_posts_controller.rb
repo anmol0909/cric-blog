@@ -5,7 +5,8 @@ class BlogPostsController < ApplicationController
   # GET /blog_posts or /blog_posts.json
   def index
     if params[:tag].present?
-      @blog_posts = BlogPost.joins(:tags).where(tags: { id: params[:tag] }).order(created_at: :desc)
+      @tag = Tag.find_by(slug: params[:tag])
+      @blog_posts = @tag.present? ? @tag.blog_posts.order(created_at: :desc) : BlogPost.none
     else
       @blog_posts = BlogPost.all.order(created_at: :desc)
     end
