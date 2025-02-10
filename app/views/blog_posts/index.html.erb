@@ -21,7 +21,7 @@
 
       <!-- Other Tags -->
       <% @tags.each do |tag| %>
-        <% selected = params[:tag].to_s == tag.id.to_s %>
+        <% selected = params[:tag].to_s == tag.slug.to_s %>
         <%= link_to tag.name, blog_posts_path(tag: tag.slug), class: "px-4 py-2 rounded-md hover:bg-gray-300 #{selected ? 'bg-gray-600 text-white' : 'bg-gray-200'}" %>
       <% end %>
     </div>

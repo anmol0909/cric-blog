@@ -54,7 +54,7 @@
     <% if current_admin == @blog_post.admin %>
       <!-- Edit and Delete buttons only for blog owner -->
       <%= link_to "Edit blog", edit_blog_post_path(@blog_post), class: "rounded-md px-3.5 py-2.5 bg-gray-100 hover:underline inline-block font-medium" %>
-      <%= button_to "Delete blog", @blog_post, method: :delete, data: { confirm: "Are you sure?" }, class: "rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-800 font-medium" %>
+      <%= button_to "Delete blog", @blog_post, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-800 font-medium" %>
     <% end %>
 
     <!-- Back to All Blogs Button (Visible to All) -->
