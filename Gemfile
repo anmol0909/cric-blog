@@ -65,6 +65,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+gem 'net-smtp', '~> 0.5.0'
 
 gem "devise", "~> 4.9"
 
