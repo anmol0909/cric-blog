@@ -1,0 +1,21 @@
+databases:
+  - name: cricblog
+    databaseName: cricblog
+    user: cricblog
+    plan: free
+
+services:
+  - type: web
+    name: cricblog
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec rails server"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cricblog
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false- key: WEB_CONCURRENCY
+        value: 2
