@@ -70,4 +70,5 @@ gem "net-smtp", "~> 0.5.0"
 gem "devise", "~> 4.9"
 
 gem "tailwind_devise", "~> 0.0.3"
-gem 'activestorage-cloudinary-service'
+gem "cloudinary"
+gem "activestorage-cloudinary-service"
